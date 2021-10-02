@@ -23,16 +23,23 @@ namespace IterativeArrangement.Services
                     string[] tempS = els[i].Split('\'');
                     (string name, int pin) = (tempS[0], int.Parse(tempS[1]));
 
-                    if (elements.Find(item => item.Name == name) is not null)
+                    if (elements.Find(item => item.Name == name) is Element element && element is not null)
                     {
-                        el = elements.Find(item => item.Name == name);
-                        el.Nets.Add((net, pin));
-                        net.Elements.Add(el);
+                        if (element.Nets.Find(n => n.Net.Name == net.Name) is var currentNet && currentNet is not (null, _))
+                        {
+                            currentNet.Pins.Add(pin);
+                        }
+                        else
+                        {
+                            el = element;
+                            el.Nets.Add((net, new() { pin }));
+                            net.Elements.Add(el);
+                        }
                     }
                     else
                     {
                         el = new() { Name = name };
-                        el.Nets.Add((net, pin));
+                        el.Nets.Add((net, new() { pin }));
                         elements.Add(el);
                         net.Elements.Add(el);
                     }
@@ -58,16 +65,23 @@ namespace IterativeArrangement.Services
                     string[] tempS = els[i].Split('\'');
                     (string name, int pin) = (tempS[0], int.Parse(tempS[1]));
 
-                    if (elements.Find(item => item.Name == name) is not null)
+                    if (elements.Find(item => item.Name == name) is Element element && element is not null)
                     {
-                        el = elements.Find(item => item.Name == name);
-                        el.Nets.Add((net, pin));
-                        net.Elements.Add(el);
+                        if (element.Nets.Find(n => n.Net.Name == net.Name) is var currentNet && currentNet is not (null, _))
+                        {
+                            currentNet.Pins.Add(pin);
+                        }
+                        else
+                        {
+                            el = element;
+                            el.Nets.Add((net, new() { pin }));
+                            net.Elements.Add(el);
+                        }
                     }
                     else
                     {
                         el = new() { Name = name };
-                        el.Nets.Add((net, pin));
+                        el.Nets.Add((net, new() { pin }));
                         elements.Add(el);
                         net.Elements.Add(el);
                     }

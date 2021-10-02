@@ -87,15 +87,15 @@ namespace IterativeArrangement
                     }
                     else
                     {
-                        int linkCount = 0;
-                        foreach ((Net net, int _) in elements[i].Nets)
+                        int linksCount = 0;
+                        foreach ((Net net, List<int> _) in elements[i].Nets)
                         {
                             if (net.Elements.Find(el => el.Name == table.Columns[j].ColumnName) is not null)
                             {
-                                linkCount++;
+                                linksCount++;
                             }
                         }
-                        row[j] = linkCount;
+                        row[j] = linksCount;
                     }
                 }
                 table.Rows.Add(row);
