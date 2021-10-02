@@ -87,7 +87,7 @@ namespace IterativeArrangement
                     }
                     else
                     {
-                        int linkCount = default;
+                        int linkCount = 0;
                         foreach ((Net net, int _) in elements[i].Nets)
                         {
                             if (net.Elements.Find(el => el.Name == table.Columns[j].ColumnName) is not null)
