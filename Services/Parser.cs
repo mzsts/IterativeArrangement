@@ -43,8 +43,8 @@ namespace IterativeArrangement.Services
                         elements.Add(el);
                         net.Elements.Add(el);
                     }
-                    nets.Add(net);
                 }
+                nets.Add(net);
             }
 
             return (elements, nets);
@@ -58,6 +58,10 @@ namespace IterativeArrangement.Services
             foreach (string item in fileData)
             {
                 List<string> els = item.Trim().Split(' ').ToList();
+                if (System.String.IsNullOrWhiteSpace(els[0]))
+                {
+                    continue;
+                }
                 Net net = new() { Name = els[0] };
                 Element el;
                 for (int i = 1; i < els.Count; i++)
@@ -85,8 +89,8 @@ namespace IterativeArrangement.Services
                         elements.Add(el);
                         net.Elements.Add(el);
                     }
-                    nets.Add(net);
                 }
+                nets.Add(net);
             }
 
             return (elements, nets);

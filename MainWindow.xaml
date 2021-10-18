@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="0.05*" MaxHeight="30" MinHeight="25"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="0.05*" MaxHeight="30" MinHeight="25"/>
         </Grid.RowDefinitions>
         <ToolBar>
             <Button Content="Открыть файл"
@@ -27,18 +28,30 @@
                           CanUserSortColumns="False">
                 </DataGrid>
             </TabItem>
-            <TabItem Header="ГКС">
-
+            <TabItem Header="Матрица А">
+                <DataGrid x:Name="matrixADataGrid"
+                          ItemsSource="{Binding}"
+                          CanUserSortColumns="False">
+                </DataGrid>
             </TabItem>
-            <TabItem Header="ГЭК">
-
+            <TabItem Header="Матрица Б">
+                <DataGrid x:Name="matrixBDataGrid"
+                          ItemsSource="{Binding}"
+                          CanUserSortColumns="False">
+                </DataGrid>
             </TabItem>
-            <TabItem Header="ВГС">
-
+            <TabItem Header="Матрица Q">
+                <DataGrid x:Name="matrixQDataGrid"
+                          ItemsSource="{Binding}"
+                          CanUserSortColumns="False">
+                </DataGrid>
             </TabItem>
             <TabItem Header="Визуализация компановки">
 
             </TabItem>
         </TabControl>
+        <StatusBar Grid.Row="2">
+            <TextBlock x:Name="elementsCount"/>
+        </StatusBar>
     </Grid>
 </Window>

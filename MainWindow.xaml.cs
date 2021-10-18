@@ -19,6 +19,8 @@ namespace IterativeArrangement
         private List<Element> elements;
         private List<Net> nets;
         private DataTable table;
+        private DataTable matrixA;
+        private DataTable matrixB;
         public MainWindow()
         {
             InitializeComponent();
@@ -56,7 +58,9 @@ namespace IterativeArrangement
 
             (elements, nets) = Parser.ParseToObjects(temp);
 
-            FillDataGrid();
+            elementsCount.Text = $"Количество элементов: {elements.Count}";
+
+            InitTables();
         }
 
         private void FillDataGrid()
@@ -102,6 +106,20 @@ namespace IterativeArrangement
             }
             elementsDataGrid.DataContext = table;
             elementsDataGrid.ItemsSource = table.DefaultView;
+        }
+
+        private void InitTables()
+        {
+            FillDataGrid();
+
+            matrixA = MatrixBuilder.GetMatrixA(elements);
+            matrixB = MatrixBuilder.GetMatrixB(elements);
+
+            matrixADataGrid.DataContext = matrixA;
+            matrixADataGrid.ItemsSource = matrixA.DefaultView;
+
+            matrixBDataGrid.DataContext = matrixB;
+            matrixBDataGrid.ItemsSource = matrixB.DefaultView;
         }
     }
 }
