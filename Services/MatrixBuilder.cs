@@ -62,7 +62,6 @@ namespace IterativeArrangement.Services
 
         public static DataTable GetMatrixB(List<Element> elements)
         {
-            List<Net> nets = new();
             int maxPinNumber = default;
             foreach (Element element in elements)
             {
@@ -71,10 +70,6 @@ namespace IterativeArrangement.Services
                     if (pins.Max() > maxPinNumber)
                     {
                         maxPinNumber = pins.Max();
-                    }
-                    if (nets.Contains(net) is false)
-                    {
-                        nets.Add(net);
                     }
                 }
             }
@@ -86,9 +81,9 @@ namespace IterativeArrangement.Services
 
             matrixB.Columns.Add(column);
 
-            foreach (Net item in nets)
+            foreach (Element element in elements)
             {
-                column = new(item.Name, typeof(int));
+                column = new(element.Name, typeof(int));
                 matrixB.Columns.Add(column);
             }
 
@@ -96,17 +91,15 @@ namespace IterativeArrangement.Services
             {
                 row = matrixB.NewRow();
                 row[0] = (i + 1).ToString();
-                for (int j = 1; j < matrixB.Columns.Count; j++)
+                for (int j = 1; j <= elements.Count; j++)
                 {
                     row[j] = 0;
-                    foreach (Element element in nets[i].Elements)
+
+                    foreach (var item in elements[j - 1].Nets)
                     {
-                        foreach (var item in element.Nets)
+                        if (item.Pins.Contains(i +1))
                         {
-                            if (item.Pins.Contains(i + 1))
-                            {
-                                row[j] = 1;
-                            }
+                            row[j] = 1;
                         }
                     }
                 }
@@ -116,16 +109,46 @@ namespace IterativeArrangement.Services
             return matrixB;
         }
 
-        public static DataTable GetMatrixQ(DataTable matrixA, DataTable matixB)
+        public static DataTable GetMatrixQ(DataTable matrixA, DataTable matrixB)
         {
             DataTable matrixQ = new("Matrix Q");
 
             DataColumn column = new("Q", typeof(string));
             DataRow row;
 
+            matrixQ.Columns.Add(column);
 
+            foreach (DataColumn item in matrixB.Columns)
+            {
+                column = new(item.ColumnName, typeof(int));
+                matrixQ.Columns.Add(column);
+            }
+
+            for (int i = 1; i < matrixA.Columns.Count; i++)
+            {
+                row = matrixQ.NewRow();
+                row[0] = matrixA.Columns[i].ColumnName;
+
+                for (int j = 1; j < matrixB.Columns.Count; j++)
+                {
+                    row[j] = GetSum(matrixA, matrixB, i, j);
+                }
+                matrixQ.Rows.Add(row);
+            }
 
             return matrixQ;
+        }
+
+        private static int GetSum(DataTable matrixA, DataTable matrixB, int indexA, int indexB)
+        {
+            List<int> mult = new();
+            
+            for (int i = 0; i < matrixA.Rows.Count; i++)
+            {
+                mult.Add((int)matrixA.Rows[i][indexA] * (int)matrixB.Rows[i][indexB]);
+            }
+
+            return mult.Sum();
         }
     }
 }

@@ -21,6 +21,7 @@ namespace IterativeArrangement
         private DataTable table;
         private DataTable matrixA;
         private DataTable matrixB;
+        private DataTable matrixQ;
         public MainWindow()
         {
             InitializeComponent();
@@ -114,12 +115,16 @@ namespace IterativeArrangement
 
             matrixA = MatrixBuilder.GetMatrixA(elements, nets);
             matrixB = MatrixBuilder.GetMatrixB(elements);
+            matrixQ = MatrixBuilder.GetMatrixQ(matrixA, matrixB);
 
             matrixADataGrid.DataContext = matrixA;
             matrixADataGrid.ItemsSource = matrixA.DefaultView;
 
             matrixBDataGrid.DataContext = matrixB;
             matrixBDataGrid.ItemsSource = matrixB.DefaultView;
+
+            matrixQDataGrid.DataContext = matrixQ;
+            matrixQDataGrid.ItemsSource = matrixQ.DefaultView;
         }
     }
 }
