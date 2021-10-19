@@ -7,7 +7,7 @@ namespace IterativeArrangement.Services
 {
     public static class MatrixBuilder
     {
-        public static DataTable GetMatrixA(List<Element> elements, List<Net> nets) // Поменяй строки и столбцы местами
+        public static DataTable GetMatrixA(List<Element> elements, List<Net> nets)
         {
             List<int> pins = new();
             foreach (Element element in elements)
@@ -33,9 +33,9 @@ namespace IterativeArrangement.Services
             column = new("A", typeof(string));
             matrixA.Columns.Add(column);
 
-            foreach (int item in pins)
+            foreach (Net item in nets)
             {
-                column = new($"{item}", typeof(int));
+                column = new($"{item.Name}", typeof(int));
                 matrixA.Columns.Add(column);
             }
 
@@ -43,12 +43,12 @@ namespace IterativeArrangement.Services
             {
                 row = matrixA.NewRow();
                 row[0] = (i + 1).ToString();
-                for (int j = 1; j <= pins.Count; j++)
+                for (int j = 1; j <= nets.Count; j++)
                 {
                     row[j] = 0;
-                    foreach ((Net _, List<int>) item in elements[i].Nets)
+                    foreach (Element element in nets[j - 1].Elements)
                     {
-                        if (item.Item2.Contains(j))
+                        if (element.Nets.Find(n => n.Net.Name == nets[j - 1].Name).Pins.Contains(i + 1))
                         {
                             row[j] = 1;
                         }

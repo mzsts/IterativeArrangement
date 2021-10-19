@@ -112,7 +112,7 @@ namespace IterativeArrangement
         {
             FillDataGrid();
 
-            matrixA = MatrixBuilder.GetMatrixA(elements);
+            matrixA = MatrixBuilder.GetMatrixA(elements, nets);
             matrixB = MatrixBuilder.GetMatrixB(elements);
 
             matrixADataGrid.DataContext = matrixA;
