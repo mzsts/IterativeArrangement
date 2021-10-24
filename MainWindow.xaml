@@ -46,9 +46,6 @@
                           CanUserSortColumns="False">
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Визуализация компановки">
-
-            </TabItem>
         </TabControl>
         <StatusBar Grid.Row="2">
             <TextBlock x:Name="elementsCount"/>

@@ -118,9 +118,9 @@ namespace IterativeArrangement.Services
 
             matrixQ.Columns.Add(column);
 
-            foreach (DataColumn item in matrixB.Columns)
+            for (int i = 1; i < matrixB.Columns.Count; i++)
             {
-                column = new(item.ColumnName, typeof(int));
+                column = new(matrixB.Columns[i].ColumnName, typeof(int));
                 matrixQ.Columns.Add(column);
             }
 
