@@ -22,26 +22,14 @@
                     <TextBlock x:Name="fileData"/>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Матрица R" x:Name="tabItemMatrix">
-                <DataGrid x:Name="matrixRDataGrid"
-                          ItemsSource="{Binding}"
-                          CanUserSortColumns="False">
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="Матрица А">
-                <DataGrid x:Name="matrixADataGrid"
-                          ItemsSource="{Binding}"
-                          CanUserSortColumns="False">
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="Матрица Б">
-                <DataGrid x:Name="matrixBDataGrid"
-                          ItemsSource="{Binding}"
-                          CanUserSortColumns="False">
-                </DataGrid>
-            </TabItem>
             <TabItem Header="Матрица Q">
                 <DataGrid x:Name="matrixQDataGrid"
+                          ItemsSource="{Binding}"
+                          CanUserSortColumns="False">
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Матрица R" x:Name="tabItemMatrix">
+                <DataGrid x:Name="matrixRDataGrid"
                           ItemsSource="{Binding}"
                           CanUserSortColumns="False">
                 </DataGrid>

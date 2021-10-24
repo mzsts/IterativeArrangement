@@ -18,10 +18,10 @@ namespace IterativeArrangement
     {
         private List<Element> elements;
         private List<Net> nets;
+
         private DataTable matrixR;
-        private DataTable matrixA;
-        private DataTable matrixB;
         private DataTable matrixQ;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -66,16 +66,8 @@ namespace IterativeArrangement
 
         private void InitTables()
         {
-            matrixA = MatrixBuilder.GetMatrixA(elements, nets);
-            matrixB = MatrixBuilder.GetMatrixB(elements);
-            matrixQ = MatrixBuilder.GetMatrixQ(matrixA, matrixB);
+            matrixQ = MatrixBuilder.GetMatrixQ(elements, nets);
             matrixR = MatrixBuilder.GetMatrixR(elements);
-
-            matrixADataGrid.DataContext = matrixA;
-            matrixADataGrid.ItemsSource = matrixA.DefaultView;
-
-            matrixBDataGrid.DataContext = matrixB;
-            matrixBDataGrid.ItemsSource = matrixB.DefaultView;
 
             matrixQDataGrid.DataContext = matrixQ;
             matrixQDataGrid.ItemsSource = matrixQ.DefaultView;
