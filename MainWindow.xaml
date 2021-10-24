@@ -22,8 +22,8 @@
                     <TextBlock x:Name="fileData"/>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Матрица" x:Name="tabItemMatrix">
-                <DataGrid x:Name="elementsDataGrid"
+            <TabItem Header="Матрица R" x:Name="tabItemMatrix">
+                <DataGrid x:Name="matrixRDataGrid"
                           ItemsSource="{Binding}"
                           CanUserSortColumns="False">
                 </DataGrid>

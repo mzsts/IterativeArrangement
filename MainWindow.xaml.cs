@@ -18,7 +18,7 @@ namespace IterativeArrangement
     {
         private List<Element> elements;
         private List<Net> nets;
-        private DataTable table;
+        private DataTable matrixR;
         private DataTable matrixA;
         private DataTable matrixB;
         private DataTable matrixQ;
@@ -64,58 +64,12 @@ namespace IterativeArrangement
             InitTables();
         }
 
-        private void FillDataGrid()
-        {
-            table = new("elemetnsTable");
-            DataColumn column;
-            DataRow row;
-
-            column = new("Els", typeof(string));
-
-            table.Columns.Add(column);
-
-            foreach (Element item in elements)
-            {
-                column = new(item.Name, typeof(int));
-                table.Columns.Add(column);
-            }
-
-            for (int i = 0; i < elements.Count; i++)
-            {
-                row = table.NewRow();
-                row[0] = elements[i].Name;
-                for (int j = 1; j <= elements.Count; j++)
-                {
-                    if (table.Columns[j].ColumnName == elements[i].Name)
-                    {
-                        row[j] = 0;
-                    }
-                    else
-                    {
-                        int linksCount = 0;
-                        foreach ((Net net, List<int> _) in elements[i].Nets)
-                        {
-                            if (net.Elements.Find(el => el.Name == table.Columns[j].ColumnName) is not null)
-                            {
-                                linksCount++;
-                            }
-                        }
-                        row[j] = linksCount;
-                    }
-                }
-                table.Rows.Add(row);
-            }
-            elementsDataGrid.DataContext = table;
-            elementsDataGrid.ItemsSource = table.DefaultView;
-        }
-
         private void InitTables()
         {
-            FillDataGrid();
-
             matrixA = MatrixBuilder.GetMatrixA(elements, nets);
             matrixB = MatrixBuilder.GetMatrixB(elements);
             matrixQ = MatrixBuilder.GetMatrixQ(matrixA, matrixB);
+            matrixR = MatrixBuilder.GetMatrixR(elements);
 
             matrixADataGrid.DataContext = matrixA;
             matrixADataGrid.ItemsSource = matrixA.DefaultView;
@@ -125,6 +79,9 @@ namespace IterativeArrangement
 
             matrixQDataGrid.DataContext = matrixQ;
             matrixQDataGrid.ItemsSource = matrixQ.DefaultView;
+
+            matrixRDataGrid.DataContext = matrixR;
+            matrixRDataGrid.ItemsSource = matrixR.DefaultView;
         }
     }
 }
