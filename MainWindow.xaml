@@ -39,7 +39,7 @@
                           CanUserSortColumns="False">
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Graph" x:Name="graphTabItem">
+            <TabItem Header="Граф" x:Name="graphTabItem">
                 <TabItem.Content>
                     <wpfgraphcontrol:AutomaticGraphLayoutControl x:Name="gViewer"/>
                 </TabItem.Content>

@@ -1,16 +1,12 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
-using System.Windows.Forms;
 using IterativeArrangement.Services;
 using IterativeArrangement.Models;
 using System.Collections.Generic;
 using System.Data;
 
-using Microsoft.Msagl.Drawing;
-using Microsoft.Msagl.WpfGraphControl;
 using Microsoft.Msagl.Prototype.Ranking;
-using Microsoft.Msagl.Routing.Rectilinear;
-using Microsoft.Msagl.Core.Layout;
+using Microsoft.Msagl.Drawing;
 
 namespace IterativeArrangement
 {
@@ -47,30 +43,40 @@ namespace IterativeArrangement
 
         private void CreateGraph(object sender, RoutedEventArgs e)
         {
-            Graph graph = new("MyGraph");
+            Graph graph = new();
 
+            Node node;
             foreach (Element item in elements)
             {
-                graph.AddNode(item.Name);
+                node = new(item.Name);
+                node.Attr.FillColor = Color.BlueViolet;
+                node.Attr.Color = Color.Black;
+
+                graph.AddNode(node);
             }
 
+            Edge edge;
             foreach (Net item in nets)
             {
                 for (int i = 0; i < item.Elements.Count - 1; i++)
                 {
                     for (int j = i + 1; j < item.Elements.Count; j++)
                     {
-                        graph.AddEdge(item.Elements[i].Name, item.Elements[j].Name);
+                        edge = new(graph.FindNode(item.Elements[i].Name), 
+                            graph.FindNode(item.Elements[j].Name), ConnectionToGraph.Connected);
+
+                        edge.LabelText = item.Elements[i].Nets.Find(el => el.Net.Name == item.Name).Pins.Count.ToString();
+                        
+                        edge.Attr.ArrowheadAtSource = ArrowStyle.None;
+                        edge.Attr.ArrowheadAtTarget = ArrowStyle.None;
+
+                        graph.AddPrecalculatedEdge(edge);
                     }
                 }
             }
 
-            int nodeCount = graph.NodeCount;
-            int edgeCount = graph.EdgeCount;
-
-            //RectilinearEdgeRouter router = new((GeometryGraph)graph, 2, 0, true, true);
-
             graph.LayoutAlgorithmSettings = new RankingLayoutSettings();
+
             gViewer.Graph = graph;
         }
 
