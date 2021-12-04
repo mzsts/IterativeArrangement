@@ -9,6 +9,6 @@ namespace IterativeArrangement.Models
     public class Net
     {
         public string Name { get; set; }
-        public List<Element> Elements { get; } = new();
+        public List<Element> Elements { get; } = new List<Element>();
     }
 }

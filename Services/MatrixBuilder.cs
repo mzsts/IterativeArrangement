@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using IterativeArrangement.Models;
-using System.Linq;
 
 namespace IterativeArrangement.Services
 {
@@ -9,16 +8,16 @@ namespace IterativeArrangement.Services
     {
         public static DataTable GetMatrixQ(List<Element> elements, List<Net> nets)
         {
-            DataTable matrixQ = new("Matrix Q");
+            DataTable matrixQ = new DataTable("Matrix Q");
 
-            DataColumn column = new("Q=", typeof(string));
+            DataColumn column = new DataColumn("Q=", typeof(string));
             DataRow row;
 
             matrixQ.Columns.Add(column);
 
             foreach (Element item in elements)
             {
-                column = new(item.Name, typeof(int));
+                column = new DataColumn(item.Name, typeof(int));
                 matrixQ.Columns.Add(column);
             }
 
@@ -45,17 +44,17 @@ namespace IterativeArrangement.Services
 
         public static DataTable GetMatrixR(List<Element> elements)
         {
-            DataTable matrixR = new("Matrix Table");
+            DataTable matrixR = new DataTable("Matrix Table");
             DataColumn column;
             DataRow row;
 
-            column = new("R=", typeof(string));
+            column = new DataColumn("R=", typeof(string));
 
             matrixR.Columns.Add(column);
 
             foreach (Element item in elements)
             {
-                column = new(item.Name, typeof(int));
+                column = new DataColumn(item.Name, typeof(int));
                 matrixR.Columns.Add(column);
             }
 
@@ -74,7 +73,7 @@ namespace IterativeArrangement.Services
                         int linksCount = 0;
                         foreach ((Net net, List<int> _) in elements[i].Nets)
                         {
-                            if (net.Elements.Find(el => el.Name == matrixR.Columns[j].ColumnName) is not null)
+                            if (net.Elements.Find(el => el.Name == matrixR.Columns[j].ColumnName) != null)
                             {
                                 linksCount++;
                             }

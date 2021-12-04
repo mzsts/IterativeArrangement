@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gv="clr-namespace:Microsoft.Msagl.WpfGraphControl;assembly=Microsoft.Msagl.WpfGraphControl"
         xmlns:local="clr-namespace:IterativeArrangement"
+        xmlns:wpfgraphcontrol="http://mlsagl"
         mc:Ignorable="d"
         Title="IterativeArrangement" Height="450" Width="800">
     <Grid>
@@ -15,6 +17,9 @@
         <ToolBar>
             <Button Content="Открыть файл"
                     Click="OpenFile"/>
+            <Separator/>
+            <Button Content="Построить граф"
+                    Click="CreateGraph"/>
         </ToolBar>
         <TabControl Grid.Row="1">
             <TabItem Header="Файл">
@@ -33,6 +38,11 @@
                           ItemsSource="{Binding}"
                           CanUserSortColumns="False">
                 </DataGrid>
+            </TabItem>
+            <TabItem Header="Graph" x:Name="graphTabItem">
+                <TabItem.Content>
+                    <wpfgraphcontrol:AutomaticGraphLayoutControl x:Name="gViewer"/>
+                </TabItem.Content>
             </TabItem>
         </TabControl>
         <StatusBar Grid.Row="2">
