@@ -1,20 +1,17 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
-using IterativeArrangement.Services;
-using IterativeArrangement.Models;
 using System.Collections.Generic;
 using System.Data;
-
 using Microsoft.Msagl.Prototype.Ranking;
 using Microsoft.Msagl.Drawing;
 
+using IterativeArrangement.Models;
+using IterativeArrangement.Services;
+
 namespace IterativeArrangement
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
-    {
+    {   
         private List<Element> elements;
         private List<Net> nets;
 
@@ -23,7 +20,7 @@ namespace IterativeArrangement
 
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private void OpenFile(object sender, RoutedEventArgs e)
