@@ -20,6 +20,9 @@
             <Separator/>
             <Button Content="Построить граф"
                     Click="CreateGraph"/>
+            <Separator/>
+            <Button Content="Скомпоновать"
+                    Click="Compose"/>
         </ToolBar>
         <TabControl Grid.Row="1">
             <TabItem Header="Файл">
